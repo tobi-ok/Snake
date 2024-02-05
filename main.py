@@ -1,5 +1,8 @@
 from random import randint as random
 
+game_height = 10
+game_width = 10
+
 UP = (0, 1)
 DOWN = (0, -1)
 LEFT = (-1, 0)
@@ -13,6 +16,7 @@ directions = {
 }
 
 def get_wrapped_board_coordinates(x, y):
+    ''' Returns opposite edge coordinate of board if input is out of bounds '''
     position = (x, y)
 
     if x >= game_width:
@@ -77,6 +81,7 @@ class game:
     def board_matrix(self):
         b = [[None for _ in range(self.width)] for _ in range(self.height)]
         
+        # Spawn snake
         for i in self.snake.body:
             x = i[0]
             y = i[1]
@@ -130,8 +135,6 @@ class game:
     def start(self):
         while self.snake.alive == True:
             self.render()
-            #print('Snake', self.snake.body)
-            #print('Apple', self.apple.position)
 
             input_direction = input('Choose direction: W - Up, S - Down, A - Left, D - Right\nInput: ').lower()
 
@@ -151,7 +154,5 @@ class game:
                 
         print(f'Game Over!\nScore: {self.score}')
 
-game_height = 10
-game_width = 10
 main_game = game(game_height, game_width)
 main_game.start()
